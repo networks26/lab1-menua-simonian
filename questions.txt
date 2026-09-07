@@ -58,11 +58,11 @@ ether 18:c3:00:58:8d:47
 
 What is this address?
 
----
+It's an Ethernet address, also called a MAC address
 
 What is the Ethernet address, also called the MAC address, of `eth0`?
 
----
+ether 58:9c:fc:01:f0:a5
 
 # Connecting programs together
 
@@ -129,7 +129,7 @@ Compare the outputs.
 
 What did `grep` remove?
 
----
+Every line except the one containing "ether"
 
 Read about `grep`:
 
@@ -365,17 +365,15 @@ and figure out how to ask it to show **all network interfaces**.
 
 What other network interface or interfaces does your server have?
 
----
-
----
+Only lo - the loopback interface
 
 Do all interfaces have an Ethernet address?
 
----
+No
 
 If not, why do you think that might be?
 
----
+Maybe because in its own description it says Local Loopback, and because it's local, it doesn't touch the core hardware, so it doesn't have MAC address.
 
 # What Ethernet neighbors does the server know about?
 
@@ -425,7 +423,7 @@ Compare the outputs.
 
 What changed?
 
----
+-n showed the numeric address instead of hostname, I guess.
 
 Look at the column containing addresses such as:
 
@@ -435,15 +433,13 @@ Look at the column containing addresses such as:
 
 What kind of addresses are these?
 
----
+Ethernet/MAC addresses.
 
 Write down the Ethernet addresses you see:
 
----
+18:c3:00:58:8d:47
 
----
-
----
+Since it's late, i guess there is only one address
 
 The table you are looking at is called the **ARP table**, or **ARP cache**.
 
@@ -499,11 +495,11 @@ arp -n
 
 Do you see some of the same Ethernet addresses?
 
----
+Yes, one address is the same
 
 Pick one Ethernet address that appears in both outputs and write it here:
 
----
+18:c3:00:58:8d:47
 
 Create a file called:
 
@@ -545,7 +541,7 @@ There should be another address on that row in the `Gateway` column.
 
 Copy that address here:
 
----
+212.34.250.9
 
 For now, think of that number simply as the address of a machine that this server often needs to communicate with.
 
@@ -647,15 +643,15 @@ Your computer wants to send an Ethernet frame to another machine.
 
 Which address must be written in the Ethernet frame?
 
----
+The MAC address of a machine, that will get the Ethernet frame.
 
 Which command showed you Ethernet addresses known by the server?
 
----
+arp -n and ip neigh.
 
 Which two commands gave you similar information?
 
----
+same arp -n and ip neigh, I guess.
 
 What does this symbol do?
 
@@ -663,7 +659,8 @@ What does this symbol do?
 |
 ```
 
----
+The `|` means take the standard output of the command on the left and use it as the standard input of the command on the right.
+
 
 What does this symbol do?
 
@@ -671,7 +668,7 @@ What does this symbol do?
 >
 ```
 
----
+Redirects standard output into a file instead of printing to the terminal.
 
 Explain in your own words what happens here:
 
@@ -679,7 +676,7 @@ Explain in your own words what happens here:
 arp -n | grep SOMETHING > result.txt
 ```
 
----
+Runs arp -n, pipes its output into grep, which keeps lines only matching SOMETHING, then writes those matches into result.txt
 
 ---
 
@@ -691,7 +688,7 @@ And what happens here?
 ifconfig eth0 | grep ether | cut ... > ether.txt
 ```
 
----
+Nearly the same, just new "|" pipes that stuff to cut to slice the address field and then write it into ether.txt
 
 ---
 
